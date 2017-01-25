@@ -1,0 +1,102 @@
+* {
+    box-sizing: border-box;
+    /*Remove?*/
+}
+
+body {
+    background-color: darkslategrey;
+}
+
+.gallery {
+    /* todo - possibly move away from flex, issues with trailing row misaligned */
+    /*display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    align-content: center;*/
+    margin: 0 auto;
+}
+
+.img-container {
+    /*flex: 0 0 20%;*/
+    width: 100%;
+    display: inline-block;
+    
+
+    text-align: center;
+}
+
+.img-link {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid rgb(215, 215, 215);
+    border-bottom-color: rgb(175, 175, 175);
+    border-right-color: rgb(175, 175, 175);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+    margin: 15px;
+    box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.4);
+    transition: 0.15s ease all;
+    /*background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHdpZHRoPScxMDBweCcgaGVpZ2h0PScxMDBweCcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQiIGNsYXNzPSJ1aWwtcmluZy1hbHQiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSJub25lIiBjbGFzcz0iYmsiPjwvcmVjdD48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgc3Ryb2tlPSIjMjkyOTI5IiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBzdHJva2U9IiNjOWM5YzkiIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj48YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJzdHJva2UtZGFzaG9mZnNldCIgZHVyPSIycyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiIGZyb209IjAiIHRvPSI1MDIiPjwvYW5pbWF0ZT48YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJzdHJva2UtZGFzaGFycmF5IiBkdXI9IjJzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIgdmFsdWVzPSIxNTAuNiAxMDAuNDsxIDI1MDsxNTAuNiAxMDAuNCI+PC9hbmltYXRlPjwvY2lyY2xlPjwvc3ZnPg==);*/
+}
+
+.img-element {
+    border-radius: 2px;
+    opacity: 0.85;
+    transition: 0.15s ease all;
+}
+
+.img-link:hover {
+    box-shadow: 1px 1px 20px 6px rgba(0, 0, 0, 0.4);
+}
+
+.img-link:hover .img-element {
+    opacity: 1;
+}
+
+
+
+@media screen and (min-width: 400px) {
+    .img-container {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .img-container {
+        width: 33%;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .img-container {
+        width: 25%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .img-container {
+        width: 20%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .img-container {
+        width: 16%;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .img-container {
+        width: 14%;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .img-container {
+        width: 12%;
+    }
+}
+
+/* Modal stuff*/
