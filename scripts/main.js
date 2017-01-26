@@ -6,44 +6,61 @@
         data, 
         gallery,
         imgContainer,
-        imgElement;
+        imgElement,
+        currentImage;
 
-    req.onreadystatechange = function () {
-        //if (req.readyState != 4 || req.status != 200) return;
+    activate();
 
-        //TODO - replace mockdata call once testing externally
-        data = getMockData();
-        console.log(data);
+    function activate(){
+        document.getElementById('modal-backdrop').addEventListener('click', onModalBackdropClick);
+        document.getElementById('btn-left').addEventListener('click', onBtnLeftClick);
+        document.getElementById('btn-right').addEventListener('click', onBtnRightClick);
 
-        initImageHash();
-    };
+        getPhotoset();
+    }
 
-    req.open("GET", "https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=795fbda7905c92aa84585d5f0bdd47b2&per_page=10&format=json&nojsoncallback=1&photoset_id=72157626579923453", true);
+    function getPhotoset() {
+        req.onreadystatechange = function () {
+            //if (req.readyState != 4 || req.status != 200) return;
+
+            //TODO - replace mockdata call once testing externally
+            data = getMockData();
+            console.log(data);
+
+            initImageHash();
+        };
+
+        req.open("GET", "https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=795fbda7905c92aa84585d5f0bdd47b2&per_page=10&format=json&nojsoncallback=1&photoset_id=72157626579923453", true);
+    }
+    
 
     function initImageHash(){
         imgHash = {};
-
+        var index = 0;
         data.photoset.photo.forEach(function(image){
-            imgHash[image.id] = image;
-            
-            document.getElementById('gallery').appendChild(initImgContainer(image));
+            // imgHash[image.id] = image;
+            imgHash[index] = image;
+            document.getElementById('gallery').appendChild(initImgContainer(image, index));
+            index++;
         });
+
+        console.log(imgHash);
     }
 
-    function initImgContainer(image) {
+    function initImgContainer(image, index) {
         var imgContainer = document.createElement('div');
 
         imgContainer.className = 'img-container';
-        imgContainer.appendChild(initImgLink(image));
+        imgContainer.appendChild(initImgLink(image, index));
 
         return imgContainer;
     }
 
-    function initImgLink(image){
+    function initImgLink(image, index){
         var imgLink = document.createElement('a');
-
+        
         imgLink.className = 'img-link';
-        imgLink.addEventListener('click', onImgClick);
+        imgLink.addEventListener('click', function(){ onImgClick(index) });
         imgLink.appendChild(initImgElement(image));
 
         return imgLink;
@@ -57,23 +74,53 @@
         imgElement.className = 'img-element';
         imgElement.height = '150';
         imgElement.width = '150';
-        imgElement.src = getImageUrl(image);
+        imgElement.src = getImageUrl(image, true);
 
         return imgElement;
     }
 
-    function getImageUrl(image){
-        return 'https://farm' + image.farm + '.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + '_q.jpg';
+    function getImageUrl(image, thumbnail){
+        return 'https://farm' + image.farm + '.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + (thumbnail ? '_q' : '') + '.jpg';
     }
 
     function onImgClick(imgId){
         //todo - repopulate all lightbox info with current image from hash
         //todo - make lightbox visible
         //todo - make backdrop visible
-        alert('clicked');
+        console.log('imgId', imgId);
+        document.getElementById('modal-backdrop').style.display = 'block';
+        // document.getElementById('modal').style.display = 'block';
+        currentImage = imgId;
+        loadImage();
     }
 
-    //document.getElementById('datImage').src="http://orig12.deviantart.net/1d64/f/2016/334/d/8/putting_the_cart_before_the_horse_by_chibibiscuit-daq5hax.png";
+    function onBtnLeftClick(){
+        console.log('left');
+        currentImage--;
+        loadImage();
+        event.stopPropagation();
+    }
+
+    function onBtnRightClick(){
+        console.log('right');
+        currentImage++;
+        loadImage();
+        event.stopPropagation();
+    }
+
+    function loadImage(){
+        console.log('imageUrl', imgHash[currentImage]);
+        document.getElementById('modal-img-element').src = getImageUrl(imgHash[currentImage]);
+    }
+
+    function onModalBackdropClick(){
+        //Todo - add transitions/fade
+        document.getElementById('modal-backdrop').style.display = 'none';
+        // document.getElementById('modal').style.display = 'none';
+    }
+
+    
+
     function getMockData(){
         return {
         "photoset": {
