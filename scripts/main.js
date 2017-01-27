@@ -42,7 +42,7 @@
 
     function getPhotoset() {
         req.onreadystatechange = function () {
-            //if (req.readyState != 4 || req.status != 200) return;
+            if (req.readyState != 4 || req.status != 200) return;
 
             //TODO - replace mockdata call once testing externally
             data = req.response; //getMockData();
