@@ -2,21 +2,42 @@
     'use strict';
 
     var req = new XMLHttpRequest(),
+        imagesPerPage = 10,
         imgHash,
         data, 
         gallery,
         imgContainer,
-        imgElement,
-        currentImage;
+        imgDownload,
+        currentImage = null;
 
     activate();
 
     function activate(){
-        document.getElementById('modal-backdrop').addEventListener('click', onModalBackdropClick);
-        document.getElementById('btn-left').addEventListener('click', onBtnLeftClick);
-        document.getElementById('btn-right').addEventListener('click', onBtnRightClick);
-
+        initEventListeners();
         getPhotoset();
+    }
+
+    function initEventListeners(){
+        document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+        document.getElementById('btn-left').addEventListener('click', prevImage);
+        document.getElementById('btn-right').addEventListener('click', nextImage);
+        document.getElementById('modal-img-element').addEventListener('click', function(e){ event.stopPropagation() });
+
+        document.addEventListener('keydown', function (e) {
+            if (currentImage !== null){
+                switch(e.keyCode){
+                    case 37: //left arrow
+                        prevImage();
+                        break;
+                    case 39: //right arrow
+                        nextImage();
+                        break;
+                    case 27: //escape
+                        closeModal();
+                        break;
+                }
+            }
+        }, false);
     }
 
     function getPhotoset() {
@@ -24,7 +45,7 @@
             //if (req.readyState != 4 || req.status != 200) return;
 
             //TODO - replace mockdata call once testing externally
-            data = getMockData();
+            data = req.response; //getMockData();
             console.log(data);
 
             initImageHash();
@@ -38,7 +59,6 @@
         imgHash = {};
         var index = 0;
         data.photoset.photo.forEach(function(image){
-            // imgHash[image.id] = image;
             imgHash[index] = image;
             document.getElementById('gallery').appendChild(initImgContainer(image, index));
             index++;
@@ -68,55 +88,92 @@
 
     function initImgElement(image){
         var imgElement = document.createElement('img');
+        imgDownload = new Image();
 
-        imgElement.alt = image.title;
-        imgElement.title = image.title;
         imgElement.className = 'img-element';
         imgElement.height = '150';
         imgElement.width = '150';
-        imgElement.src = getImageUrl(image, true);
+
+        imgDownload.src = getImageUrl(image, true);
+        imgDownload.onload = function (){
+            imgElement.src = this.src;
+            imgElement.alt = image.title;
+            imgElement.title = image.title;
+            imgElement.style.opacity = 1;
+        }
 
         return imgElement;
     }
 
     function getImageUrl(image, thumbnail){
-        return 'https://farm' + image.farm + '.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + (thumbnail ? '_q' : '') + '.jpg';
+        return 'https://farm' + image.farm + '.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + (thumbnail ? '' : '_b') + '.jpg';
     }
 
     function onImgClick(imgId){
-        //todo - repopulate all lightbox info with current image from hash
-        //todo - make lightbox visible
-        //todo - make backdrop visible
-        console.log('imgId', imgId);
         document.getElementById('modal-backdrop').style.display = 'block';
-        // document.getElementById('modal').style.display = 'block';
         currentImage = imgId;
         loadImage();
     }
 
-    function onBtnLeftClick(){
-        console.log('left');
-        currentImage--;
-        loadImage();
-        event.stopPropagation();
+    function prevImage(event){
+        if (currentImage > 0) {
+            currentImage--;
+            loadImage();
+        } else {
+            toast('That\'s all we\'ve got! This is the first image.');
+        }
+        if (event){
+            event.stopPropagation();
+        }
     }
 
-    function onBtnRightClick(){
-        console.log('right');
-        currentImage++;
-        loadImage();
-        event.stopPropagation();
+    function nextImage(event){
+        if (currentImage < (imagesPerPage - 1)) {
+            currentImage++;
+            loadImage();
+        } else {
+            toast('We\'ve hit bedrock! This is the last image.');
+        };
+
+        if (event){
+            event.stopPropagation();
+        }
     }
 
     function loadImage(){
-        console.log('imageUrl', imgHash[currentImage]);
-        document.getElementById('modal-img-element').src = getImageUrl(imgHash[currentImage]);
+        imgDownload.onload = null;
+        var imgElement = document.getElementById('modal-img-element');
+        imgDownload = new Image();
+
+        imgElement.src = '';
+        imgElement.style.opacity = 0;
+        
+
+        imgDownload.src = getImageUrl(imgHash[currentImage]);
+        imgDownload.onload = function (){
+            imgElement.src = this.src;
+            imgElement.style.opacity = 1;
+        }
     }
 
-    function onModalBackdropClick(){
-        //Todo - add transitions/fade
+    function onModalImgElementClick() {
+        event.stopPropagation();
+    }
+
+    function closeModal(){
         document.getElementById('modal-backdrop').style.display = 'none';
-        // document.getElementById('modal').style.display = 'none';
+        currentImage = null;
+    }
+
+    function toast(message){
+        var toastElement = document.getElementById('toast');
+        var toastDuration = 3000;
+        toastElement.innerText = message;
+        toastElement.style.opacity = 1;
+
+        setTimeout(function(){
+            toastElement.style.opacity = 0;
+        }, toastDuration)
     }
 
     

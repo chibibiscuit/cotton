@@ -1,44 +1,34 @@
 <html>
     <head>
         <title>Lightbox Exercise</title>
+        <meta charset="utf-8"/>
 
+        <!-- Font References -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+        <!-- Stylesheets -->
         <link rel="stylesheet" type="text/css" href="styles/common.css"/>
     </head>
     <body>
-        <!--<div id="modal-backdrop" 
-             class="modal-backdrop flex-container-vertical">
-            <div class="flex-auto"></div>
-            <div class="modal-img-container flex-fixed">
-                
-                <div class="flex-container-horizontal">
-                    <div class="flex-auto"></div>
-                    <div id="btn-left" class="btn-left flex-fixed"></div>
-                    <img id="modal-img-element" class="modal-img-element flex-fixed"/>
-                    <div id="btn-right" class="btn-right flex-fixed"></div>
-                    <div class="flex-auto"></div>
-                </div>
-            </div>
-            <div class="flex-auto"></div>
-            
-        </div>-->
-
         <div id="modal-backdrop" class="modal-backdrop">
             <div id="btn-left" class="btn-left">
                 <span class="btn-icon arrow-left"></span>
-                <!--<svg xmlns="http://www.w3.org/2000/svg" width="100%"><path fill="#fff" d="M35.355 0L11.428 23.927 0 35.355l11.428 11.43L35.355 70.71l11.43-11.428-23.928-23.927 23.927-23.927L35.354 0z"/></svg>-->
             </div>
-            <img id="modal-img-element" class="modal-img-element "/>
+            <img id="modal-img-element" class="modal-img-element" />
 
-            
+            <div class="loading-spinner"></div>
                 
             <div id="btn-right" class="btn-right ">
                 <span class="btn-icon arrow-right"></span>
             </div>
-            <div id="btn-icon btn-close"></div>
+            <div id="btn-close" class="btn-icon btn-close"></div>
         </div>
 
         <div id="gallery" class="gallery"></div>
         
+        <span id="toast" class="toast"></span>
+        
+        <!-- Scripts -->
         <script src="scripts/main.js"></script>
     </body>
 </html>
