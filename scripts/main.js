@@ -44,15 +44,15 @@
 
         req.open("GET", "https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=795fbda7905c92aa84585d5f0bdd47b2&per_page=10&format=json&nojsoncallback=1&photoset_id=72157626579923453", true);
 
-        req.setRequestHeader('User-Agent','XMLHTTP/1.0');
         req.onreadystatechange = function () {
-            if (req.readyState != 4 || req.status != 200) return;
+            if (req.readyState == XMLHttpRequest.DONE) {
 
-            //TODO - replace mockdata call once testing externally
-            data = req.response; //getMockData();
-            console.log(data);
+                //TODO - replace mockdata call once testing externally
+                data = req.response; //getMockData();
+                console.log(data);
 
-            initImageHash();
+                initImageHash();
+            }
         };
         req.send(null);
     }
@@ -61,6 +61,7 @@
     function initImageHash(){
         imgHash = {};
         var index = 0;
+        console.log(data.photoset);
         data.photoset.photo.forEach(function(image){
             imgHash[index] = image;
             document.getElementById('gallery').appendChild(initImgContainer(image, index));
