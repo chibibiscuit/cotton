@@ -1,8 +1,7 @@
 (function(document, window){
     'use strict';
 
-    var req = new XMLHttpRequest(),
-        imagesPerPage = 10,
+    var imagesPerPage = 10,
         imgHash,
         data, 
         gallery,
@@ -41,6 +40,8 @@
     }
 
     function getPhotoset() {
+        var req = new XMLHttpRequest();
+        
         req.onreadystatechange = function () {
             if (req.readyState != 4 || req.status != 200) return;
 
