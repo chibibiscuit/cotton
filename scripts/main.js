@@ -41,7 +41,10 @@
 
     function getPhotoset() {
         var req = new XMLHttpRequest();
-        
+
+        req.open("GET", "https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=795fbda7905c92aa84585d5f0bdd47b2&per_page=10&format=json&nojsoncallback=1&photoset_id=72157626579923453", true);
+
+        req.setRequestHeader('User-Agent','XMLHTTP/1.0');
         req.onreadystatechange = function () {
             if (req.readyState != 4 || req.status != 200) return;
 
@@ -51,8 +54,7 @@
 
             initImageHash();
         };
-
-        req.open("GET", "https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=795fbda7905c92aa84585d5f0bdd47b2&per_page=10&format=json&nojsoncallback=1&photoset_id=72157626579923453", true);
+        req.send(null);
     }
     
 
