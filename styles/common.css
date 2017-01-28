@@ -10,6 +10,10 @@ html, body {
     
 }
 
+body.modal-active {
+    position: fixed;
+}
+
 .gallery {
     /* todo - possibly move away from flex, issues with trailing row misaligned */
     /*display: flex;
@@ -238,17 +242,25 @@ html, body {
 }
 
 .toast {
-    background-color: rgb(40, 40, 40);
+    
     color: white;
     padding: 5px 15px;
     height: 30px;
     border-radius: 15px;
 
-    position: absolute;
+    position: fixed;
     bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 30;
     transition: 0.3s;
     opacity: 0;
+}
+
+.toast-info {
+    background-color: rgb(40, 40, 40);
+}
+
+.toast-error {
+    background-color: rgb(140, 40, 40);
 }
