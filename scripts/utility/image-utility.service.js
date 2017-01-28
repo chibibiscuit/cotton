@@ -1,11 +1,13 @@
 var imageUtilityService = new function(){
     var imgDownload;
 
-    this.loadImage = function(imgUrl, imgElement){
-        if (imgDownload) { imgDownload.onload = null }
-        
-        imgDownload = new Image();
+    this.loadImage = function(imgUrl, imgElement, async){
+        console.log('async', async)
+        if (imgDownload && !imgDownload.async) { imgDownload.onload = null }
 
+        imgDownload = new Image();
+        imgDownload.async = async;
+        
         imgElement.src = '';
         imgElement.style.opacity = 0;
 

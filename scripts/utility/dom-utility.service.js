@@ -30,7 +30,8 @@ var domUtilityService = new function(){
 
         imageUtilityService.loadImage(
             flickrService.getImageUrl(image, 3),
-            imgElement
+            imgElement,
+            true
         );
 
         return imgElement;
