@@ -1,5 +1,4 @@
-# Cotton - Lightweight Image Viewer
-![Cotton Logo](_readme-content/cotton_logo_full.png "Cotton Logo")
+# Cotton - Lightweight Image Viewer ![Cotton Logo](_readme-content/cotton_logo_full.png "Cotton Logo")
 
 
 ### Goal
