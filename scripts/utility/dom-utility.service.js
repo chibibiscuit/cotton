@@ -2,7 +2,8 @@ var domUtilityService = new function(){
     this.initImgLink = function(image, index){
         var imgLink = document.createElement('a');
         
-        imgLink.className = 'img-link';
+        imgLink.className = 'img-link loading';
+
         imgLink.addEventListener('click', function(){ onImgClick(index) });
         imgLink.appendChild(this.initImgElement(image));
 

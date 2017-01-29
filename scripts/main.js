@@ -27,7 +27,7 @@
             e.preventDefault();
         }, false);
 
-        document.getElementById('btn-load-more').addEventListener('click', loadPhotosetPage);
+        document.getElementById('btn-load-more').addEventListener('click', onLoadMoreClick);
 
         document.addEventListener('keydown', function (e) {
             if (window.currentImage !== null){

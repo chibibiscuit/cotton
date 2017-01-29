@@ -21,6 +21,7 @@ var imageUtilityService = new function(){
 
                 imgElement.src = this.src;
                 imgElement.style.opacity = 1;
+                imgElement.parentNode.classList.remove('loading');
                 resolve();
             }
 
