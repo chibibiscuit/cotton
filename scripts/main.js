@@ -84,6 +84,7 @@
 
     function closeModal(){
         document.getElementById('modal-backdrop').style.display = 'none';
+        document.getElementById('modal-img-element').src = '';
         document.body.className = '';
         window.currentImage = null;
     }

@@ -7,8 +7,7 @@ var imageUtilityService = new function(){
         imgDownload = new Image();
         imgDownload.async = async;
 
-        imgElement.src = '';
-        imgElement.style.opacity = 0;
+        imgElement.style.opacity = imgElement.src ? 0.3 : 0; //hide images that haven't loaded, fade existing images when loading if src exists
 
         imgDownload.src = imgUrl;
         imgDownload.onload = function (){
