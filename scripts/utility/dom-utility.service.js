@@ -30,7 +30,7 @@ var domUtilityService = new function(){
             flickrService.getImageUrl(image, 1),
             imgElement,
             true
-        );
+        ).catch(toast.error);
 
         return imgElement;
     }
@@ -44,6 +44,8 @@ var domUtilityService = new function(){
         imageUtilityService.loadImage(
             flickrService.getImageUrl(window.imgHash[currentImage], 2),
             document.getElementById('modal-img-element')
-        );
+        ).catch(toast.error);
+
+        document.getElementById('modal-img-title').innerText = window.imgHash[window.currentImage].title;
     }
 }

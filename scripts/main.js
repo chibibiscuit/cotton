@@ -17,6 +17,10 @@
 
     function initEventListeners(){
         document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+        document.getElementById('modal-backdrop').addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, false);
+
         document.getElementById('btn-left').addEventListener('click', prevImage);
         document.getElementById('btn-right').addEventListener('click', nextImage);
         document.getElementById('modal-img-element').addEventListener('click', function(e){ event.stopPropagation() });
@@ -55,7 +59,9 @@
             imageUtilityService.loadImage(
                 flickrService.getImageUrl(window.imgHash[window.currentImage], 2),
                 document.getElementById('modal-img-element')
-            );
+            ).catch(toast.error);
+
+            document.getElementById('modal-img-title').innerText = window.imgHash[window.currentImage].title;
         } else {
             toast.info('That\'s all we\'ve got! This is the first image.');
         }
@@ -70,7 +76,9 @@
             imageUtilityService.loadImage(
                 flickrService.getImageUrl(window.imgHash[window.currentImage], 2),
                 document.getElementById('modal-img-element')
-            );
+            ).catch(toast.error);
+
+            document.getElementById('modal-img-title').innerText = window.imgHash[window.currentImage].title;
         } else {
             toast.info('We\'ve hit bedrock! This is the last image.');
         }
