@@ -61,6 +61,8 @@ a:hover {
 
 .btn {
     padding: 15px 20px;
+    border-radius: 3px;
+    border: 1px solid rgb(150, 150, 150);
     width: 300px;
     text-align: center;
 }

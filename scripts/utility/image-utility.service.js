@@ -3,7 +3,9 @@ var imageUtilityService = new function(){
 
     this.loadImage = function(imgUrl, imgElement, async){
         var promise = new Promise(function (resolve, reject) {
-            if (imgDownload && !imgDownload.async) { imgDownload.onload = null } //if not loading multiple images asynchronously, cancel previous request
+            if (imgDownload && !imgDownload.async) { 
+                imgDownload.onload = null; //if not loading multiple images asynchronously, cancel previous request
+            }
 
             imgDownload = new Image();
             imgDownload.async = async;
@@ -28,5 +30,14 @@ var imageUtilityService = new function(){
         });
 
         return promise;
+    }
+
+    this.loadCurrentImageModal = function(){
+        imageUtilityService.loadImage(
+            flickrService.getImageUrl(window.imgHash[window.currentImage], 2),
+            document.getElementById('modal-img-element')
+        ).catch(toast.error);
+
+        document.getElementById('modal-img-title').innerText = window.imgHash[window.currentImage].title;
     }
 }

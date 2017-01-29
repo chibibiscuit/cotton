@@ -1,13 +1,4 @@
 var domUtilityService = new function(){
-    this.initImgContainer = function(image, index) {
-        var imgContainer = document.createElement('div');
-
-        imgContainer.className = 'img-container';
-        imgContainer.appendChild(this.initImgLink(image, index));
-
-        return imgContainer;
-    }
-
     this.initImgLink = function(image, index){
         var imgLink = document.createElement('a');
         
