@@ -1,4 +1,4 @@
-# Cotton - Lightweight Image Viewer ![Cotton Logo](_readme-content/cotton_logo_full.png "Cotton Logo")
+# ![Cotton Logo](content/cotton_logo_l.png "Cotton Logo") - Lightweight Image Viewer 
 
 
 ### Goal
@@ -25,4 +25,4 @@ Copyright 2017 - Nathan Wilson
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
-Created with love as a code example for Patreon.com. Thank you all for the opportunity, and for your consideration.
+Created with love as a code example for [Patreon.com](http://www.patreon.com). Thank you all for the opportunity, and for your consideration.
