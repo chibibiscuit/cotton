@@ -1,4 +1,4 @@
-# ![Cotton Logo](content/cotton_logo_l.png "Cotton Logo") - Lightweight Image Viewer 
+# ![Cotton Logo](content/cotton_logo_l_dark.png "Cotton Logo") - Lightweight Image Viewer 
 
 
 ### Goal
