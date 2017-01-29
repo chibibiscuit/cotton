@@ -2,8 +2,15 @@
     'use strict';
 
     var photosetId = '72157626579923453',
-        imagesPerPage = 20,
-        index = 0;
+        imagesPerPage = 9,
+        page = 1,
+        imagesShown,
+        index = 0,
+        scrollTimeout,
+        scrollPos,
+        prvScrollPos,
+        scrollHeight = document.documentElement.scrollHeight,
+        clientHeight = document.documentElement.clientHeight;
 
     window.imgHash = {};
 
@@ -25,6 +32,16 @@
         document.getElementById('btn-right').addEventListener('click', nextImage);
         document.getElementById('modal-img-element').addEventListener('click', function(e){ event.stopPropagation() });
 
+        document.getElementById('btn-load-more').addEventListener('click', loadMore);
+        window.addEventListener('scroll', onScroll);
+        // window.onscroll = function(e) {
+        //     onScroll(e);
+        // }
+
+        // document.ontouchmove = function(e) {
+        //     onScroll(e);
+        // }
+
         document.addEventListener('keydown', function (e) {
             if (window.currentImage !== null){
                 switch(e.keyCode){
@@ -40,14 +57,57 @@
                 }
             }
         }, false);
+
+        
     } 
 
-    function initImageHash(data){        
+    function onScroll(){
+        console.log('hit it');
+        prvScrollPos = scrollPos;
+
+        scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTimeout) {
+            window.clearTimeout(scrollTimeout);
+        }
+
+        scrollTimeout = window.setTimeout(function (){
+            console.log(scrollHeight, scrollPos, clientHeight)
+            if (scrollHeight - (scrollPos + clientHeight) < 200) {
+                console.log('rock bottom mofo')
+            }
+        }, 250);
+        //todo - settimeout for the scroller?
+        console.log(prvScrollPos, scrollPos);
+        if (prvScrollPos === scrollPos) { return }  
+
+        
+    }
+
+    function loadMore(){
+        page++;
+        imagesShown = imagesPerPage * page;
+
+        flickrService.getPhotoset(photosetId, 1, imagesShown)
+            .then(initImageHash, toast.error);
+    }
+
+    function initImageHash(data){
+        var index = 0;
+
         data.photoset.photo.forEach(function(image){
-            window.imgHash[index] = image;
-            document.getElementById('gallery').appendChild(domUtilityService.initImgLink(image, index));
+            if (!window.imgHash[index]){
+                window.imgHash[index] = image;
+                document.getElementById('gallery').appendChild(domUtilityService.initImgLink(image, index));
+            }
+
             index++;
         });
+
+        if (data.photoset.photo.length >= data.photoset.total) {
+            document.getElementById('btn-load-more').style.display = 'none';
+            document.getElementById('all-loaded').style.display = 'block';
+        }
     }
 
     function prevImage(event){
@@ -70,7 +130,8 @@
     }
 
     function nextImage(event){
-        if (window.currentImage < (imagesPerPage - 1)) {
+        console.log(imagesShown);
+        if (window.currentImage < (imagesShown - 1)) {
             window.currentImage++;
 
             imageUtilityService.loadImage(
