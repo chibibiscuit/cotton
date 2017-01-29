@@ -23,13 +23,11 @@ var domUtilityService = new function(){
         imgDownload = new Image();
 
         imgElement.className = 'img-element';
-        imgElement.height = '150';
-        imgElement.width = '150';
         imgElement.alt = image.title;
         imgElement.title = image.title;
 
         imageUtilityService.loadImage(
-            flickrService.getImageUrl(image, 3),
+            flickrService.getImageUrl(image, 1),
             imgElement,
             true
         );

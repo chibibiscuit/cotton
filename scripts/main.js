@@ -41,7 +41,7 @@
     function initImageHash(data){        
         data.photoset.photo.forEach(function(image){
             window.imgHash[index] = image;
-            document.getElementById('gallery').appendChild(domUtilityService.initImgContainer(image, index));
+            document.getElementById('gallery').appendChild(domUtilityService.initImgLink(image, index));
             index++;
         });
     }
