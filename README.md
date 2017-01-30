@@ -6,6 +6,8 @@
 
 The original goal was to create an image lightbox with vanilla Javascript and CSS, however I felt it was necessary to provide a context for the lightbox to exist in.
 
+#### [Demo Here](https://chibibiscuit.github.io/cotton/)
+
 ### Functionality
 
 The application will load 12 images from the provided Flickr photoset initially, and after clicking the 'Load More' button, it will lazy-load images from Flickr (12 at a time) until the entire photoset has been loaded. Clicking an image will open the lightbox (which displays the title and the full-resolution image). The lightbox contains buttons to navigate to both the next and previous picture, in addition to a close button (the lightbox can also be closed by clicking anywhere outside the image and the other buttons). The images can also be changed using the `<-` and `->` keys, and the lightbox can also be closed using the `ESC` key.
